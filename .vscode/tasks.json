@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Bun: Silent build",
+			"command": "~/.bun/bin/bun run .",
+			"group": "build",
+			"problemMatcher": [],
+			"detail": "Bun build only with error output.",
+			"presentation": { "reveal": "silent" }
+		}
+	]
+}

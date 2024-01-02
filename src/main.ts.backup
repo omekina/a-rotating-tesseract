@@ -1,0 +1,77 @@
+import RenderEngine from "./scripts/RenderEngine";
+import VectorVisualizer from "./scripts/VectorVisualizer";
+import MyTeX from "./scripts/mytex/MyTeX";
+import Camera from "./scripts/objects/Camera";
+import Vector from "./scripts/objects/Vector";
+
+
+let cam = new Camera(new Vector(0, -2, 1), [-10, 0, 0]);
+let time = 0;
+let vectors_random = [
+    new Vector(1 - Math.random() * 2, 1 - Math.random() * 2, 1 - Math.random() * 2),
+    new Vector(1 - Math.random() * 2, 1 - Math.random() * 2, 1 - Math.random() * 2),
+    new Vector(1 - Math.random() * 2, 1 - Math.random() * 2, 1 - Math.random() * 2),
+];
+let vectors_orthonormal = [
+    new Vector(1 - Math.random() * 2, 1 - Math.random() * 2, 1 - Math.random() * 2),
+];
+
+
+function run(): void {
+    vectors_random = [
+        new Vector(1 - Math.random() * 2, 1 - Math.random() * 2, 1 - Math.random() * 2),
+        new Vector(1 - Math.random() * 2, 1 - Math.random() * 2, 1 - Math.random() * 2),
+        new Vector(1 - Math.random() * 2, 1 - Math.random() * 2, 1 - Math.random() * 2),
+    ];
+
+    vectors_orthonormal = [
+        new Vector(1 - Math.random() * 2, 1 - Math.random() * 2, 1 - Math.random() * 2),
+    ];
+    vectors_orthonormal.push(new Vector(1 - Math.random() * 2, 1 - Math.random() * 2, 1 - Math.random() * 2));
+    vectors_orthonormal.push(vectors_orthonormal[0].cross(vectors_orthonormal[1]));
+
+    if (vectors_random.length != vectors_orthonormal.length) {
+        throw new Error("Fields must be the same size");
+    }
+    for (let i = 0; i < vectors_random.length; ++i) {
+        vectors_random[i].multiply(1 / vectors_random[i].length());
+        vectors_orthonormal[i].multiply(1 / vectors_orthonormal[i].length());
+    }
+    update();
+}
+
+
+function update(): void {
+    RenderEngine.clear();
+    time = time + .001;
+    cam = new Camera(new Vector(0, -2, 1), [-30, 0, 0]);
+    RenderEngine.grid(cam);
+    RenderEngine.axis(cam);
+    
+    let vec_current = [];
+    for (let i = 0; i < vectors_random.length; ++i) {
+        vec_current.push(vectors_random[i].clone());
+        let diff = new Vector(
+            vectors_orthonormal[i].x - vectors_random[i].x,
+            vectors_orthonormal[i].y - vectors_random[i].y,
+            vectors_orthonormal[i].z - vectors_random[i].z,
+        );
+        diff.multiply(Math.min(time, 1));
+        vec_current[i].add_vector(diff);
+        VectorVisualizer.render_vector(cam, vec_current[i], i);
+    }
+    MyTeX.show(vec_current[0], vec_current[1], vec_current[2]);
+
+    if (time >= 2) {
+        return;
+    }
+    requestAnimationFrame(update);
+}
+
+
+RenderEngine.init();
+MyTeX.init();
+
+run();
+
+update();
