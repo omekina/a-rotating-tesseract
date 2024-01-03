@@ -2,9 +2,22 @@ import RenderEngine from "./scripts/RenderEngine";
 import Camera from "./scripts/objects/Camera";
 import Transformation from "./scripts/objects/Transformation";
 import Vector from "./scripts/objects/Vector";
+import Mesh4 from "./scripts/objects4/Mesh4";
+import Vector4 from "./scripts/objects4/Vector4";
+import Camera4 from "./scripts/objects4/Camera4";
 
 
 let last_camera = new Camera(new Vector(0, -2, 1), [-30, 0, 0]);
+let camera4: Camera4 = new Camera4();
+let tesseract: Mesh4 = new Mesh4([
+    new Vector4(-1, -1, -1, -1),
+    new Vector4(-1, -1, 1, -1),
+    new Vector4(-1, 1, 1, -1),
+    new Vector4(-1, 1, -1, -1),
+    new Vector4(-1, -1, -1, -1),
+]);
+tesseract.extrude(new Vector4(2, 0, 0, 0));
+tesseract.extrude(new Vector4(0, 0, 0, 2));
 
 
 function run(): void {
@@ -28,6 +41,7 @@ function update(): void {
     RenderEngine.clear();
     RenderEngine.grid(last_camera);
     RenderEngine.axis(last_camera);
+    tesseract.project(camera4).render(last_camera);
 }
 
 
