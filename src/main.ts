@@ -39,7 +39,6 @@ function rotate_camera(event: MouseEvent): void {
 
 function update(): void {
     RenderEngine.clear();
-    RenderEngine.grid(last_camera);
     RenderEngine.axis(last_camera);
     tesseract.project(camera4).render(last_camera);
 }
