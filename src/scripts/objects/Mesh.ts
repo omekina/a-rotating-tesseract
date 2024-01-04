@@ -3,6 +3,13 @@ import Camera from "./Camera";
 import RenderEngine from "../RenderEngine";
 
 
+export enum RotationPlanes {
+    XY,
+    XZ,
+    YZ
+}
+
+
 class Mesh {
     private vertices: Vector[];
 
@@ -39,6 +46,35 @@ class Mesh {
         for (let i = 0; i < this.vertices.length; ++i) {
             this.vertices[i].multiply(factor);
         }
+    }
+
+    public rotate(rotation_plane: RotationPlanes, angle: number): void {
+        angle = angle * Math.PI / 180;
+        if (rotation_plane === RotationPlanes.XY) {
+            for (let i = 0; i < this.vertices.length; ++i) {
+                const current_vertex = this.vertices[i].clone();
+                this.vertices[i].x = current_vertex.x * Math.cos(angle) - current_vertex.y * Math.sin(angle);
+                this.vertices[i].y = current_vertex.x * Math.sin(angle) + current_vertex.y * Math.cos(angle);
+            }
+            return;
+        }
+        if (rotation_plane === RotationPlanes.XZ) {
+            for (let i = 0; i < this.vertices.length; ++i) {
+                const current_vertex = this.vertices[i].clone();
+                this.vertices[i].x = current_vertex.x * Math.cos(angle) - current_vertex.z * Math.sin(angle);
+                this.vertices[i].z = current_vertex.x * Math.sin(angle) + current_vertex.z * Math.cos(angle);
+            }
+            return;
+        }
+        if (rotation_plane === RotationPlanes.YZ) {
+            for (let i = 0; i < this.vertices.length; ++i) {
+                const current_vertex = this.vertices[i].clone();
+                this.vertices[i].y = current_vertex.y * Math.cos(angle) - current_vertex.z * Math.sin(angle);
+                this.vertices[i].z = current_vertex.y * Math.sin(angle) + current_vertex.z * Math.cos(angle);
+            }
+            return;
+        }
+        console.error("Invalid 3D rotation plane");
     }
 
     public render(camera: Camera): void {

@@ -7,6 +7,9 @@ import Vector4 from "./scripts/objects4/Vector4";
 import Camera4 from "./scripts/objects4/Camera4";
 
 
+import { RotationPlanes4 } from "./scripts/objects4/Mesh4";
+
+
 let camera = new Camera(new Vector(0, -1.5, 0), [0, 0, 0]);
 let camera4: Camera4 = new Camera4();
 let tesseract: Mesh4;
@@ -23,7 +26,14 @@ function run(): void {
     tesseract.extrude(new Vector4(2, 0, 0, 0));
     tesseract.extrude(new Vector4(0, 0, 0, 2));
     update();
+    setInterval(time_increment, 40);
     window.addEventListener("mousemove", rotate_camera);
+}
+
+
+function time_increment(): void {
+    tesseract.rotate(RotationPlanes4.XW, 1);
+    update();
 }
 
 
