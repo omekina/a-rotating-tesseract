@@ -1,7 +1,7 @@
 <img align="center" src="a-rotating-tesseract-visualization.png">
 
 # A rotating tesseract
-If you wish to just run the animation. The packed files are in the `dst` folder.
+If you wish to just run the animation, the packed files are in the `dst` folder. Or you can view it here: <a href="https://mekina.cz/tesseract/">https://mekina.cz/tesseract/</a>
 
 Or you can build it with Bun.
 
