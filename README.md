@@ -3,9 +3,7 @@
 # A rotating tesseract
 If you wish to just run the animation, the packed files are in the `dst` folder.
 
-Or you can view it here: <a href="https://mekina.cz/tesseract/">https://mekina.cz/tesseract/</a>
-
-Or you can build it with Bun.
+You can view it here: <a href="https://mekina.cz/tesseract/">https://mekina.cz/tesseract/</a>
 
 # Disclaimer
 This hyper-advanced tesseract may initially boggle the mind with its 4D gymnastics.
