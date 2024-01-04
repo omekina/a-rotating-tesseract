@@ -1,3 +1,5 @@
+<img align="center" src="a-rotating-tesseract-visualization.png">
+
 # A rotating tesseract
 If you wish to just run the animation. The packed files are in the `dst` folder.
 
